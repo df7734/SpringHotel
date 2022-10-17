@@ -1,0 +1,44 @@
+<div th:fragment="header" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4">Blog</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <!----Too much similar code because html list doesnt display correct if it grouped----->
+            <div sec:authorize="isAnonymous()">
+                <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('USER')">
+                <li class="nav-item"><a href="/users" class="nav-link">Account</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('USER') || hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/rooms" class="nav-link">Rooms</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/users" class="nav-link">Users</a></li>
+            </div>
+
+
+            <div sec:authorize="hasAuthority('USER')  || hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/bookings" class="nav-link">Bookings</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/rooms/add" class="nav-link">Add Room</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/users/add" class="nav-link">Add User</a></li>
+            </div>
+
+            <div sec:authorize="hasAuthority('USER')  || hasAuthority('ADMIN')">
+                <li class="nav-item"><a href="/bookings/add" class="nav-link">Add Booking</a></li>
+            </div>
+        </ul>
+    </header>
+</div>
